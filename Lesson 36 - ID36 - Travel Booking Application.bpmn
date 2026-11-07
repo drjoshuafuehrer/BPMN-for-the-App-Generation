@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:sdmn="https://www.omg.org/spec/SDMN/" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:dmn="https://www.omg.org/spec/DMN/20240513/MODEL/" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:trisobpmn="http://www.trisotech.com/2014/triso/bpmn" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:openapi="https://openapis.org/omg/extension/1.0" xmlns:boxedext="https://www.trisotech.com/spec/DMN/20191111/EXT/" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:rss="http://purl.org/rss/2.0/" xmlns:trisofeed="http://trisotech.com/feed" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:drools="http://www.jboss.org/drools" xmlns:i18n="http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0" xmlns:feel="https://www.omg.org/spec/DMN/20240513/FEEL/" xmlns:asyncapi="https://asyncapi.org/omg/extension/1.0"                      xmlns="http://www.trisotech.com/definitions/_a7c89e42-e950-439d-98c0-ca60c573c503" id="_a7c89e42-e950-439d-98c0-ca60c573c503" targetNamespace="http://www.trisotech.com/definitions/_a7c89e42-e950-439d-98c0-ca60c573c503" expressionLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/" typeLanguage="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" exporter="Workflow Modeler" exporterVersion="12.14.9" name="Lesson 36 - ID36 - Travel Booking Application" xml:lang="en" triso:translationLanguages="" trisobpmn:logoChoice="Default">
+    <semantic:import namespace="https://www.trisotech.com/libraries/unit of measure" location="unit of measure" importType="https://www.trisotech.com/libraries"/>
+    <semantic:import namespace="https://www.trisotech.com/libraries/automation" location="automation" importType="https://www.trisotech.com/libraries"/>
+    <semantic:import namespace="https://www.trisotech.com/libraries/nn" location="nn" importType="https://www.trisotech.com/libraries"/>
+    <semantic:import namespace="https://www.trisotech.com/libraries/utility" location="utility" importType="https://www.trisotech.com/libraries"/>
+    <semantic:import namespace="https://www.trisotech.com/libraries/document" location="document" importType="https://www.trisotech.com/libraries"/>
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:string" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_string" id="_triso-default-bpmnItemDefinition-string_id"/>
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:Any" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_Any" id="_triso-default-bpmnItemDefinition-Any_id"/>
+    <semantic:process id="_35051270-019c-4f74-99fe-931b40d3e014" name="Page 1" triso:readOnly="false" triso:collectEnds="true" isClosed="false">
+        <semantic:startEvent id="_64c1f020-5700-4b16-8b6e-d79a2ba5e0f4" name="User enters travel dates and destination" triso:readOnly="false">
+            <semantic:outgoing>_ab158c9e-674f-48bb-81b6-91651671105b</semantic:outgoing>
+            <semantic:conditionalEventDefinition id="_d54d2b4e-fb97-4313-bd80-135d50edfa93" xsi:type="semantic:tFormalExpression" language="text/x-script.python">if user.search_intent == "travel" and user.destination is not None and user.departure_date"
+    # start the travel booking process and determine availability
+    start_travel_booking(user)
+                <semantic:condition/>
+            </semantic:conditionalEventDefinition>
+        </semantic:startEvent>
+        <semantic:serviceTask id="_b9e51f33-3865-430b-b17b-3d180c403196" name="Determine Availability" triso:readOnly="false" implementation="##WebService">
+            <semantic:extensionElements>
+                <triso:graphRelations>
+                    <triso:systemRef id="_d6f3abac-94a1-4785-b7f7-9eb8b6944cd1" predicate="where">_92dbeb55-95b3-4b38-b921-f423ccd222ee</triso:systemRef>
+                </triso:graphRelations>
+            </semantic:extensionElements>
+            <semantic:incoming>_ab158c9e-674f-48bb-81b6-91651671105b</semantic:incoming>
+            <semantic:outgoing>_55085b01-53d6-48f9-aa37-94ee2a06ef73</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:userTask id="_b644f8d8-9ef5-4d53-94c4-0d233421a190" name="Enter Payment Details" triso:readOnly="false" implementation="##unspecified">
+            <semantic:extensionElements>
+                <triso:notification id="_c3219920-2c36-48e1-a86f-97347bff9702" type="email" mode="others"/>
+                <triso:graphRelations>
+                    <triso:systemRef id="_f96a4b5b-7c64-4cfd-9fa8-aa6777b06e2d" predicate="where">_92dbeb55-95b3-4b38-b921-f423ccd222ee</triso:systemRef>
+                </triso:graphRelations>
+            </semantic:extensionElements>
+            <semantic:incoming>_55085b01-53d6-48f9-aa37-94ee2a06ef73</semantic:incoming>
+            <semantic:outgoing>_76d295e3-ffec-4c72-9d8e-8aab0acbc354</semantic:outgoing>
+        </semantic:userTask>
+        <semantic:serviceTask id="_305e0b14-c8fd-4eff-a2fa-95198e0cd156" name="Confirm Booking" triso:readOnly="false" implementation="##WebService">
+            <semantic:extensionElements>
+                <triso:graphRelations>
+                    <triso:systemRef id="_99cd9016-2bd9-4484-8e43-66027bebef75" predicate="where">_92dbeb55-95b3-4b38-b921-f423ccd222ee</triso:systemRef>
+                </triso:graphRelations>
+            </semantic:extensionElements>
+            <semantic:incoming>_76d295e3-ffec-4c72-9d8e-8aab0acbc354</semantic:incoming>
+            <semantic:outgoing>_ac7865bf-920a-48ed-b46e-b52bf8bd39f9</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:endEvent id="_b8ccf866-88f3-4a3d-a94d-c3a9b8e77dfe" triso:readOnly="false">
+            <semantic:incoming>_ac7865bf-920a-48ed-b46e-b52bf8bd39f9</semantic:incoming>
+        </semantic:endEvent>
+        <semantic:sequenceFlow id="_76d295e3-ffec-4c72-9d8e-8aab0acbc354" triso:readOnly="false" sourceRef="_b644f8d8-9ef5-4d53-94c4-0d233421a190" targetRef="_305e0b14-c8fd-4eff-a2fa-95198e0cd156"/>
+        <semantic:sequenceFlow id="_ac7865bf-920a-48ed-b46e-b52bf8bd39f9" triso:readOnly="false" sourceRef="_305e0b14-c8fd-4eff-a2fa-95198e0cd156" targetRef="_b8ccf866-88f3-4a3d-a94d-c3a9b8e77dfe"/>
+        <semantic:sequenceFlow id="_ab158c9e-674f-48bb-81b6-91651671105b" triso:readOnly="false" sourceRef="_64c1f020-5700-4b16-8b6e-d79a2ba5e0f4" targetRef="_b9e51f33-3865-430b-b17b-3d180c403196"/>
+        <semantic:sequenceFlow id="_55085b01-53d6-48f9-aa37-94ee2a06ef73" triso:readOnly="false" sourceRef="_b9e51f33-3865-430b-b17b-3d180c403196" targetRef="_b644f8d8-9ef5-4d53-94c4-0d233421a190"/>
+    </semantic:process>
+    <bpmndi:BPMNDiagram id="_a0c6f8da-effd-4598-919b-bfcc3fc350c9" name="Page 1">
+        <bpmndi:BPMNPlane bpmnElement="_35051270-019c-4f74-99fe-931b40d3e014" id="_a0c6f8da-effd-4598-919b-bfcc3fc350c9_plane" trisobpmn:diagramWidth="1485" trisobpmn:diagramHeight="1050">
+            <bpmndi:BPMNShape id="_5862ac95-1f82-49a0-962a-e0ce8fb3fc03" bpmnElement="_64c1f020-5700-4b16-8b6e-d79a2ba5e0f4" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="634.5909296754978" y="326.1818639897429" width="32" height="32"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0">
+                    <dc:Bounds height="47" width="110" x="595.5909296754978" y="367.1818639897429"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_98491abc-47bc-43eb-93c0-83c810ba231f" bpmnElement="_b9e51f33-3865-430b-b17b-3d180c403196" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="723.0909167974453" y="304.18185939437166" width="96" height="76"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0">
+                    <dc:Bounds height="31" width="90" x="726.0909167974453" y="326.68185939437166"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_701ba15c-72d2-4026-9fb9-aef5f23a9008" bpmnElement="_b644f8d8-9ef5-4d53-94c4-0d233421a190" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="858.6645083591961" y="304.18184166095244" width="96" height="76"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0">
+                    <dc:Bounds height="31" width="90" x="861.6645083591961" y="326.68184166095244"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_ee4ef09b-b306-4c8a-b2b9-83b6b3143626" bpmnElement="_305e0b14-c8fd-4eff-a2fa-95198e0cd156" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="993.664508133782" y="304.18184594637927" width="96" height="76"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0">
+                    <dc:Bounds height="16" width="90" x="996.664508133782" y="334.18184594637927"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_ac719e06-ad8d-42d4-983e-fa0ddbaf691b" bpmnElement="_b8ccf866-88f3-4a3d-a94d-c3a9b8e77dfe" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="1127.6645078942797" y="324.1818505135736" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="_347f454c-eaba-4516-b3ae-857ba754eed3" color:border-color="#000000" bpmnElement="_76d295e3-ffec-4c72-9d8e-8aab0acbc354">
+                <di:waypoint x="953.6645083591962" y="342.18184166095244"/>
+                <di:waypoint x="993.664508133782" y="342.18184594637927"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_2348aa2a-3fa9-4176-b8fd-6e16c239772e" color:border-color="#000000" bpmnElement="_ac7865bf-920a-48ed-b46e-b52bf8bd39f9">
+                <di:waypoint x="1088.664508133782" y="342.18184594637927"/>
+                <di:waypoint x="1127.6645078942797" y="342.1818505135736"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_59078fe2-f71d-479b-8efa-2739651fd567" color:border-color="#000000" bpmnElement="_ab158c9e-674f-48bb-81b6-91651671105b">
+                <di:waypoint x="665.5909296754978" y="342.1818639897429"/>
+                <di:waypoint x="723.0909167974453" y="342.18185939437166"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_1"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_8ee9040e-0f45-4da1-85ed-810a2b57b5fe" color:border-color="#000000" bpmnElement="_55085b01-53d6-48f9-aa37-94ee2a06ef73">
+                <di:waypoint x="819.0909167974453" y="342.18185906832014"/>
+                <di:waypoint x="858.6645083591961" y="342.18184166095244"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_1"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+        <bpmndi:BPMNLabelStyle id="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_0">
+            <dc:Font name="arial,helvetica,sans-serif" size="11" isBold="true" isItalic="false" isStrikeThrough="false" isUnderline="false"/>
+        </bpmndi:BPMNLabelStyle>
+        <bpmndi:BPMNLabelStyle id="LS_a0c6f8da-effd-4598-919b-bfcc3fc350c9_1">
+            <dc:Font name="arial,helvetica,sans-serif" size="11" isBold="false" isItalic="false" isStrikeThrough="false" isUnderline="false"/>
+        </bpmndi:BPMNLabelStyle>
+    </bpmndi:BPMNDiagram>
+    <semantic:relationship type="trisoExtension">
+        <semantic:extensionElements>
+            <triso:graphObjects>
+                <triso:system name="Travel App" triso:readOnly="false" id="_92dbeb55-95b3-4b38-b921-f423ccd222ee"/>
+            </triso:graphObjects>
+            <triso:itemDefinitions>
+                <triso:itemDefinition name="unit_of_measure.Measure" label="unit of measure.Measure" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Measure&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_76b47187-9c1f-4823-92b3-f6a237fd106c" name="value" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Value (expressed as a Number)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>number</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_58df89db-8617-42c0-9ea0-7c2b5cd9aaf6" name="unit" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Unit (expressed as a symbol e.g. kg)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.User" label="automation.User" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Current user&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_c37ef19b-fdc6-41d1-a4fc-a3728023de90" name="email" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Email&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_b78fbcc2-d0fa-4732-b6f3-d14cc53ba940" name="name" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Name&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_2fa57e73-dec0-4c2a-b8c9-13bfea1a4698" name="employee number" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Employee number&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_fbe41837-8e81-4712-9319-fb98c45f107c" name="cost center" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Cost center&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_bded0641-1d7a-41fe-bed6-9112acbd87ed" name="department" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Department&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_40efeadb-3c98-446f-9905-1d09381e565e" name="division" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Division&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_88f40367-222a-4681-a6e8-046e24277c32" name="organization" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Organization&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_28adec66-9880-4ed7-a66d-bbd018f7e6b8" name="manager" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Manager&lt;/p&gt;</triso:description>
+                        <triso:typeRef>automation.User</triso:typeRef>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.Initiator" label="automation.Initiator" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Initiator&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_7b6e67b8-1c2b-44c0-86af-35149070b34e" name="email" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Email&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_51b96c65-5019-4e02-9659-24dbec6306b5" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_0a5716f7-2db1-46da-a93d-cc54883a1cf6" name="name" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Name&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_5e9a2a09-a835-4747-9c58-4b973d2fad7e" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.TaskHistoryItem" label="automation.TaskHistoryItem" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Task history Item&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_8ef02a7e-cfb7-4b25-a02b-7dbe4be6737c" name="name" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Name&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_7700d793-9d08-4b62-b7b8-706581cbc6bd" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_0a9f3365-e54c-4f4d-a41e-4a556e5bcd1a" name="type" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Type&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_02ac2dbd-3d60-4a78-8a00-07f7d2e95f4b" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_070c47c1-4219-446c-ae61-7760801dd8cd" name="completed by" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Completed by&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_88f1781f-11d3-4f3c-832e-855fd3aad9b9" name="completed on" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Completed on&lt;/p&gt;</triso:description>
+                        <triso:typeRef>dateTime</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_7d1ea892-ea86-4a87-9b82-3b6ce871e529" name="started on" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Started on&lt;/p&gt;</triso:description>
+                        <triso:typeRef>dateTime</triso:typeRef>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.TaskHistory" label="automation.TaskHistory" isCollection="true" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Task history&lt;/p&gt;</triso:description>
+                    <triso:typeRef>automation.TaskHistoryItem</triso:typeRef>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.InstanceInfo" label="automation.InstanceInfo" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Information about process/case instance&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_cf91f70c-bf6d-431e-bf26-fe58d82fea1a" name="instanceId" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Unique instance identifier&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_69023391-3afb-46e3-8ee9-53097cf2fe5e" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_ffd1774b-c54d-4b2c-b6ba-9de4a3276e57" name="parentInstanceId" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Parent instance identifier if this is a sub instance&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_7d9cb684-3c44-45e1-8992-25ff99e717a1" name="name" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Name of the instance&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_7e61d6f4-bffa-45be-8389-170ba989113e" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_2ddfd60b-8a3d-4fa2-86fc-3b1627c406e2" name="tags" isCollection="true" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Instance tags&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_8db026d3-d7dc-4d15-aa92-5daece2d0e50" name="initiator" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;User who initiated the instance&lt;/p&gt;</triso:description>
+                        <triso:typeRef>automation.Initiator</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_72ba08ae-0661-4c50-8570-109ef83fd5fc" name="started on" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Date and time when the instance was started&lt;/p&gt;</triso:description>
+                        <triso:typeRef>dateTime</triso:typeRef>
+                        <triso:allowedValues>
+                            <semantic:extensionElements>
+                                <triso:constraintDetails id="_640b8c89-41b4-49e5-8b73-09b1b4d464b0" constraintsType="notNull">
+                                    <triso:value>not(? = null)</triso:value>
+                                    <triso:display>not(null)</triso:display>
+                                </triso:constraintDetails>
+                            </semantic:extensionElements>
+                            <triso:text>not(? = null)</triso:text>
+                        </triso:allowedValues>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.ServiceInfo" label="automation.ServiceInfo" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Information about service&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_0ac221d7-55a8-4617-9e6b-f4c3be1ed2aa" name="environment" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Environment Identifier&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_8555d48e-bb60-43ca-9e1c-e39c86ef30dc" name="group" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Group Identifier&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_1750a1d8-935a-47ac-ac52-d0ac7ce06a80" name="artifact" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Artifact Identifier&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_a4327f73-6b14-4aa3-996f-d54770e631d4" name="version" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Version Identifier&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="automation.Users" label="automation.Users" isCollection="true" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;List of users&lt;/p&gt;</triso:description>
+                    <triso:typeRef>automation.User</triso:typeRef>
+                </triso:itemDefinition>
+                <triso:itemDefinition name="document.MetaInfo" label="document.MetaInfo" isCollection="false" triso:isProtected="false" triso:readOnly="true">
+                    <triso:description>&lt;p&gt;Meta information about PDF file&lt;/p&gt;</triso:description>
+                    <triso:itemComponent id="_233372f7-5158-4bb1-a99b-398e646c2eeb" name="can modify" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Document can be modified (expressed as Boolean)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>boolean</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_57b5424e-1177-434c-b5f5-5868911ca87b" name="creator" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Creator (expressed as String)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_106a67b6-2ced-401b-90f1-99fad00c4e69" name="creation date" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Creation date (expressed as Date and time)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>dateTime</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_e9d6b1ee-6cd9-4815-a766-e470851c8ddb" name="pages count" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Number of pages (expressed as a Number)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>number</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_7a6fb50c-1ef5-45ba-b654-4fad9dd086f5" name="author" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Author (expressed as String)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_0aa2dbcc-2127-4b42-b4e6-eebd3ffe650b" name="is signed" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Document is signed (expressed as Boolean)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>boolean</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_975517a5-8a8b-4a93-bf7b-ce8196e9f87e" name="can fill in form" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Document's form can be filled in (expressed as Boolean)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>boolean</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_7074a9fd-447e-477c-a488-3a044284a953" name="is encrypted" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Document is encrypted (expressed as Boolean)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>boolean</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_af867ae0-ca7f-4cd9-9be5-7410f9976104" name="can extract content" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Document's content can be extracted (expressed as Boolean)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>boolean</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_fc079f20-59d0-4a10-8281-155628d51bef" name="producer" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Producer (expressed as String, e.g. Microsoft: Print To PDF)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_71a3cf89-8694-409a-bd96-7e1e89f81563" name="title" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Title (expressed as String)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>string</triso:typeRef>
+                    </triso:itemComponent>
+                    <triso:itemComponent id="_5d7020a6-bf17-4916-9890-76bae67a2b11" name="modification date" isCollection="false" triso:isProtected="false">
+                        <triso:description>&lt;p&gt;Title (expressed as Date and time)&lt;/p&gt;</triso:description>
+                        <triso:typeRef>dateTime</triso:typeRef>
+                    </triso:itemComponent>
+                </triso:itemDefinition>
+            </triso:itemDefinitions>
+        </semantic:extensionElements>
+        <semantic:source>_a7c89e42-e950-439d-98c0-ca60c573c503</semantic:source>
+        <semantic:target>_a7c89e42-e950-439d-98c0-ca60c573c503</semantic:target>
+    </semantic:relationship>
+</semantic:definitions>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:sdmn="https://www.omg.org/spec/SDMN/" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:dmn="https://www.omg.org/spec/DMN/20240513/MODEL/" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:trisobpmn="http://www.trisotech.com/2014/triso/bpmn" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:openapi="https://openapis.org/omg/extension/1.0" xmlns:boxedext="https://www.trisotech.com/spec/DMN/20191111/EXT/" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:rss="http://purl.org/rss/2.0/" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:trisofeed="http://trisotech.com/feed" xmlns:feel="https://www.omg.org/spec/DMN/20240513/FEEL/" xmlns:drools="http://www.jboss.org/drools" xmlns:asyncapi="https://asyncapi.org/omg/extension/1.0" xmlns:i18n="http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0"                      xmlns="http://www.trisotech.com/definitions/_a16d70f0-7c1a-4bcb-92c2-a220f317b3f1" id="_a16d70f0-7c1a-4bcb-92c2-a220f317b3f1" targetNamespace="http://www.trisotech.com/definitions/_a16d70f0-7c1a-4bcb-92c2-a220f317b3f1" exporter="Workflow Modeler" exporterVersion="12.14.9" name="Lesson 60 - Coffee App Generated using GPT" xml:lang="en" triso:translationLanguages="" trisobpmn:logoChoice="Default">
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:string" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_string" id="_triso-default-bpmnItemDefinition-string_id"/>
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:Any" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_Any" id="_triso-default-bpmnItemDefinition-Any_id"/>
+    <semantic:message name="Order Details &amp; Payment Info" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" id="Message_OrderPayment"/>
+    <semantic:message name="Confirmation Message" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" id="Message_Confirmation"/>
+    <semantic:message name="Order Ready Alert" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" id="Message_OrderReady"/>
+    <semantic:message name="Reward Update" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" id="Message_RewardUpdate"/>
+    <semantic:collaboration id="Collab_MobileCoffeeOrdering">
+        <semantic:participant id="Participant_Customer" name="Customer" triso:readOnly="false" processRef="_05b548bd-2b30-4f0a-85c2-167ca602ad41"/>
+        <semantic:participant id="Participant_App" name="Coffee Shop App" triso:readOnly="false" processRef="_288e7cf5-9be1-4c67-b292-c330dd64978e"/>
+        <semantic:messageFlow id="MsgFlow_OrderPayment" name="Order &amp; Payment" triso:readOnly="false" sourceRef="Task_SubmitOrderPayment" targetRef="Start_ReceiveOrderPayment" messageRef="Message_OrderPayment"/>
+        <semantic:messageFlow id="MsgFlow_Confirmation" name="Confirmation" triso:readOnly="false" sourceRef="Task_SendConfirmation" targetRef="Catch_Confirmation" messageRef="Message_Confirmation"/>
+        <semantic:messageFlow id="MsgFlow_OrderReady" name="Order Ready Alert" triso:readOnly="false" sourceRef="Task_NotifyCustomerReady" targetRef="Catch_OrderReady" messageRef="Message_OrderReady"/>
+        <semantic:messageFlow id="MsgFlow_RewardUpdate" name="Reward Update" triso:readOnly="false" sourceRef="Task_NotifyCustomerRewards" targetRef="Catch_RewardUpdate" messageRef="Message_RewardUpdate"/>
+    </semantic:collaboration>
+    <semantic:process id="_05b548bd-2b30-4f0a-85c2-167ca602ad41" name="Customer Journey" triso:readOnly="false" triso:collectEnds="true" isExecutable="false" isClosed="false">
+        <semantic:startEvent id="Start_OpenApp" name="Open App" triso:readOnly="false">
+            <semantic:outgoing>Flow_C_1</semantic:outgoing>
+        </semantic:startEvent>
+        <semantic:userTask id="Task_BrowseMenu" name="Browse Menu" triso:readOnly="false" implementation="##unspecified">
+            <semantic:incoming>Flow_C_1</semantic:incoming>
+            <semantic:outgoing>Flow_C_2</semantic:outgoing>
+        </semantic:userTask>
+        <semantic:userTask id="Task_CustomizeDrink" name="Customize Drink" triso:readOnly="false" implementation="##unspecified">
+            <semantic:incoming>Flow_C_2</semantic:incoming>
+            <semantic:outgoing>Flow_C_3</semantic:outgoing>
+        </semantic:userTask>
+        <semantic:sendTask id="Task_SubmitOrderPayment" name="Submit Order &amp; Payment" triso:readOnly="false" implementation="##WebService" messageRef="Message_OrderPayment">
+            <semantic:incoming>Flow_C_3</semantic:incoming>
+            <semantic:outgoing>Flow_C_4</semantic:outgoing>
+        </semantic:sendTask>
+        <semantic:intermediateCatchEvent id="Catch_Confirmation" name="Receive Confirmation" triso:readOnly="false">
+            <semantic:incoming>Flow_C_4</semantic:incoming>
+            <semantic:outgoing>Flow_C_5</semantic:outgoing>
+            <semantic:messageEventDefinition messageRef="Message_Confirmation" id="MsgDef_Confirmation"/>
+        </semantic:intermediateCatchEvent>
+        <semantic:intermediateCatchEvent id="Catch_OrderReady" name="Receive Order Ready Alert" triso:readOnly="false">
+            <semantic:incoming>Flow_C_5</semantic:incoming>
+            <semantic:outgoing>Flow_C_6</semantic:outgoing>
+            <semantic:messageEventDefinition messageRef="Message_OrderReady" id="MsgDef_OrderReady"/>
+        </semantic:intermediateCatchEvent>
+        <semantic:manualTask id="Task_PickUpOrder" name="Pick Up Order" triso:readOnly="false">
+            <semantic:incoming>Flow_C_6</semantic:incoming>
+            <semantic:outgoing>Flow_C_7</semantic:outgoing>
+        </semantic:manualTask>
+        <semantic:intermediateCatchEvent id="Catch_RewardUpdate" name="Receive Reward Update" triso:readOnly="false">
+            <semantic:incoming>Flow_C_7</semantic:incoming>
+            <semantic:outgoing>Flow_C_8</semantic:outgoing>
+            <semantic:messageEventDefinition messageRef="Message_RewardUpdate" id="MsgDef_RewardUpdate"/>
+        </semantic:intermediateCatchEvent>
+        <semantic:endEvent id="End_EnjoyDrink" name="Enjoy Drink" triso:readOnly="false">
+            <semantic:incoming>Flow_C_8</semantic:incoming>
+        </semantic:endEvent>
+        <semantic:sequenceFlow id="Flow_C_1" triso:readOnly="false" sourceRef="Start_OpenApp" targetRef="Task_BrowseMenu" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_2" triso:readOnly="false" sourceRef="Task_BrowseMenu" targetRef="Task_CustomizeDrink" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_3" triso:readOnly="false" sourceRef="Task_CustomizeDrink" targetRef="Task_SubmitOrderPayment" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_4" triso:readOnly="false" sourceRef="Task_SubmitOrderPayment" targetRef="Catch_Confirmation" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_5" triso:readOnly="false" sourceRef="Catch_Confirmation" targetRef="Catch_OrderReady" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_6" triso:readOnly="false" sourceRef="Catch_OrderReady" targetRef="Task_PickUpOrder" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_7" triso:readOnly="false" sourceRef="Task_PickUpOrder" targetRef="Catch_RewardUpdate" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_C_8" triso:readOnly="false" sourceRef="Catch_RewardUpdate" targetRef="End_EnjoyDrink" isImmediate="false"/>
+    </semantic:process>
+    <semantic:process id="_288e7cf5-9be1-4c67-b292-c330dd64978e" name="Coffee Shop App Workflow" triso:readOnly="false" triso:collectEnds="true" isExecutable="false" isClosed="false">
+        <semantic:startEvent id="Start_ReceiveOrderPayment" name="Receive Order &amp; Payment Data" triso:readOnly="false">
+            <semantic:outgoing>Flow_A_1</semantic:outgoing>
+            <semantic:messageEventDefinition messageRef="Message_OrderPayment" id="MsgDef_OrderPayment"/>
+        </semantic:startEvent>
+        <semantic:serviceTask id="Task_ValidatePayment" name="Validate Payment" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>Flow_A_1</semantic:incoming>
+            <semantic:outgoing>Flow_A_2</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:sendTask id="Task_SendConfirmation" name="Send Confirmation" triso:readOnly="false" implementation="##WebService" messageRef="Message_Confirmation">
+            <semantic:incoming>Flow_A_2</semantic:incoming>
+            <semantic:outgoing>Flow_A_3</semantic:outgoing>
+        </semantic:sendTask>
+        <semantic:serviceTask id="Task_SendOrderToBarista" name="Send Order to Barista" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>Flow_A_3</semantic:incoming>
+            <semantic:outgoing>Flow_A_4</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:serviceTask id="Task_UpdateOrderStatus" name="Update Order Status" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>Flow_A_4</semantic:incoming>
+            <semantic:outgoing>Flow_A_5</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:sendTask id="Task_NotifyCustomerReady" name="Notify Customer (Order Ready)" triso:readOnly="false" implementation="##WebService" messageRef="Message_OrderReady">
+            <semantic:incoming>Flow_A_5</semantic:incoming>
+            <semantic:outgoing>Flow_A_6</semantic:outgoing>
+        </semantic:sendTask>
+        <semantic:serviceTask id="Task_ApplyLoyaltyPoints" name="Apply Loyalty Points" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>Flow_A_6</semantic:incoming>
+            <semantic:outgoing>Flow_A_7</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:sendTask id="Task_NotifyCustomerRewards" name="Notify Customer (Rewards)" triso:readOnly="false" implementation="##WebService" messageRef="Message_RewardUpdate">
+            <semantic:incoming>Flow_A_7</semantic:incoming>
+            <semantic:outgoing>Flow_A_8</semantic:outgoing>
+        </semantic:sendTask>
+        <semantic:endEvent id="End_RecordTransaction" name="Record&#10;Transaction" triso:readOnly="false">
+            <semantic:incoming>Flow_A_8</semantic:incoming>
+        </semantic:endEvent>
+        <semantic:sequenceFlow id="Flow_A_1" triso:readOnly="false" sourceRef="Start_ReceiveOrderPayment" targetRef="Task_ValidatePayment" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_2" triso:readOnly="false" sourceRef="Task_ValidatePayment" targetRef="Task_SendConfirmation" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_3" triso:readOnly="false" sourceRef="Task_SendConfirmation" targetRef="Task_SendOrderToBarista" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_4" triso:readOnly="false" sourceRef="Task_SendOrderToBarista" targetRef="Task_UpdateOrderStatus" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_5" triso:readOnly="false" sourceRef="Task_UpdateOrderStatus" targetRef="Task_NotifyCustomerReady" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_6" triso:readOnly="false" sourceRef="Task_NotifyCustomerReady" targetRef="Task_ApplyLoyaltyPoints" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_7" triso:readOnly="false" sourceRef="Task_ApplyLoyaltyPoints" targetRef="Task_NotifyCustomerRewards" isImmediate="false"/>
+        <semantic:sequenceFlow id="Flow_A_8" triso:readOnly="false" sourceRef="Task_NotifyCustomerRewards" targetRef="End_RecordTransaction" isImmediate="false"/>
+    </semantic:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_MobileCoffeeOrdering" name="Page 1">
+        <bpmndi:BPMNPlane bpmnElement="Collab_MobileCoffeeOrdering" id="BPMNPlane_MobileCoffeeOrdering" trisobpmn:diagramWidth="1560" trisobpmn:diagramHeight="1050">
+            <bpmndi:BPMNShape id="Shape_Participant_Customer" bpmnElement="Participant_Customer" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="120" y="152" width="988" height="143"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="143" width="16" x="120" y="152"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Start_OpenApp" bpmnElement="Start_OpenApp" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="182" y="207" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="145" y="252"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_BrowseMenu" bpmnElement="Task_BrowseMenu" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="234" y="185" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="94" x="237" y="217"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_CustomizeDrink" bpmnElement="Task_CustomizeDrink" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="353" y="185" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="94" x="356" y="217"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_SubmitOrderPayment" bpmnElement="Task_SubmitOrderPayment" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="476" y="185" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="479" y="209.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Catch_Confirmation" bpmnElement="Catch_Confirmation" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="616" y="207" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="582" y="187"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Catch_OrderReady" bpmnElement="Catch_OrderReady" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="734" y="207" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="110" x="695" y="176"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_PickUpOrder" bpmnElement="Task_PickUpOrder" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="810" y="185" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="94" x="813" y="217"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Catch_RewardUpdate" bpmnElement="Catch_RewardUpdate" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="952" y="207" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="110" x="915" y="175"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_End_EnjoyDrink" bpmnElement="End_EnjoyDrink" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="1042" y="207" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="1005" y="250"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Participant_App" bpmnElement="Participant_App" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="100" y="374" width="1069" height="151"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="151" width="16" x="100" y="374"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Start_ReceiveOrderPayment" bpmnElement="Start_ReceiveOrderPayment" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="162" y="427" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="110" x="125" y="472"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_ValidatePayment" bpmnElement="Task_ValidatePayment" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="228" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="94" x="231" y="437"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_SendConfirmation" bpmnElement="Task_SendConfirmation" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="353" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="94" x="356" y="437"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_SendOrderToBarista" bpmnElement="Task_SendOrderToBarista" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="481" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="484" y="429.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_UpdateOrderStatus" bpmnElement="Task_UpdateOrderStatus" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="605" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="608" y="429.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_NotifyCustomerReady" bpmnElement="Task_NotifyCustomerReady" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="733" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="736" y="429.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_ApplyLoyaltyPoints" bpmnElement="Task_ApplyLoyaltyPoints" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="859" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="862" y="429.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_Task_NotifyCustomerRewards" bpmnElement="Task_NotifyCustomerRewards" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="979" y="405" width="100" height="80"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="94" x="982" y="429.5"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Shape_End_RecordTransaction" bpmnElement="End_RecordTransaction" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="1105" y="427" width="36" height="36"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="31" width="110" x="1068" y="470"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_1" color:border-color="#000000" bpmnElement="Flow_C_1">
+                <di:waypoint x="218" y="225"/>
+                <di:waypoint x="234" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_2" color:border-color="#000000" bpmnElement="Flow_C_2">
+                <di:waypoint x="334" y="225"/>
+                <di:waypoint x="353" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_3" color:border-color="#000000" bpmnElement="Flow_C_3">
+                <di:waypoint x="453" y="225"/>
+                <di:waypoint x="476" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_4" color:border-color="#000000" bpmnElement="Flow_C_4">
+                <di:waypoint x="576" y="225"/>
+                <di:waypoint x="616" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_5" color:border-color="#000000" bpmnElement="Flow_C_5">
+                <di:waypoint x="652" y="225"/>
+                <di:waypoint x="734" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_6" color:border-color="#000000" bpmnElement="Flow_C_6">
+                <di:waypoint x="770" y="225"/>
+                <di:waypoint x="810" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_7" color:border-color="#000000" bpmnElement="Flow_C_7">
+                <di:waypoint x="910" y="225"/>
+                <di:waypoint x="952" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_C_8" color:border-color="#000000" bpmnElement="Flow_C_8">
+                <di:waypoint x="988" y="225"/>
+                <di:waypoint x="1042" y="225"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_1" color:border-color="#000000" bpmnElement="Flow_A_1">
+                <di:waypoint x="198" y="445"/>
+                <di:waypoint x="228" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_2" color:border-color="#000000" bpmnElement="Flow_A_2">
+                <di:waypoint x="328" y="445"/>
+                <di:waypoint x="353" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_3" color:border-color="#000000" bpmnElement="Flow_A_3">
+                <di:waypoint x="453" y="445"/>
+                <di:waypoint x="481" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_4" color:border-color="#000000" bpmnElement="Flow_A_4">
+                <di:waypoint x="581" y="445"/>
+                <di:waypoint x="605" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_5" color:border-color="#000000" bpmnElement="Flow_A_5">
+                <di:waypoint x="705" y="445"/>
+                <di:waypoint x="733" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_6" color:border-color="#000000" bpmnElement="Flow_A_6">
+                <di:waypoint x="833" y="445"/>
+                <di:waypoint x="859" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_7" color:border-color="#000000" bpmnElement="Flow_A_7">
+                <di:waypoint x="959" y="445"/>
+                <di:waypoint x="979" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_Flow_A_8" color:border-color="#000000" bpmnElement="Flow_A_8">
+                <di:waypoint x="1079" y="445"/>
+                <di:waypoint x="1105" y="445"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_MsgFlow_OrderPayment" color:border-color="#000000" bpmnElement="MsgFlow_OrderPayment">
+                <di:waypoint x="526" y="265"/>
+                <di:waypoint x="526" y="322"/>
+                <di:waypoint x="180" y="322"/>
+                <di:waypoint x="180" y="425"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="298" y="327"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_MsgFlow_Confirmation" color:border-color="#000000" bpmnElement="MsgFlow_Confirmation">
+                <di:waypoint x="403" y="405"/>
+                <di:waypoint x="403" y="346"/>
+                <di:waypoint x="634" y="346"/>
+                <di:waypoint x="634" y="245"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="463.5" y="351"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_MsgFlow_OrderReady" color:border-color="#000000" bpmnElement="MsgFlow_OrderReady">
+                <di:waypoint x="783" y="405"/>
+                <di:waypoint x="783" y="326"/>
+                <di:waypoint x="752" y="326"/>
+                <di:waypoint x="752" y="245"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="712.5" y="331"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Edge_MsgFlow_RewardUpdate" color:border-color="#000000" bpmnElement="MsgFlow_RewardUpdate">
+                <di:waypoint x="1029" y="405"/>
+                <di:waypoint x="1029" y="322"/>
+                <di:waypoint x="970" y="322"/>
+                <di:waypoint x="970" y="245"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LSBPMNDiagram_MobileCoffeeOrdering_0">
+                    <dc:Bounds height="16" width="110" x="944.5" y="327"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+        <bpmndi:BPMNLabelStyle id="LSBPMNDiagram_MobileCoffeeOrdering_0">
+            <dc:Font name="arial,helvetica,sans-serif" size="11" isBold="false" isItalic="false" isStrikeThrough="false" isUnderline="false"/>
+        </bpmndi:BPMNLabelStyle>
+    </bpmndi:BPMNDiagram>
+</semantic:definitions>

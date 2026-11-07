@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:sdmn="https://www.omg.org/spec/SDMN/" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:dmn="https://www.omg.org/spec/DMN/20240513/MODEL/" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:trisobpmn="http://www.trisotech.com/2014/triso/bpmn" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:openapi="https://openapis.org/omg/extension/1.0" xmlns:boxedext="https://www.trisotech.com/spec/DMN/20191111/EXT/" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:rss="http://purl.org/rss/2.0/" xmlns:trisofeed="http://trisotech.com/feed" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:drools="http://www.jboss.org/drools" xmlns:i18n="http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0" xmlns:feel="https://www.omg.org/spec/DMN/20240513/FEEL/" xmlns:asyncapi="https://asyncapi.org/omg/extension/1.0"                      xmlns="http://www.trisotech.com/definitions/_eb5e69ed-217c-4ef1-addc-540e31f11f6b" id="_eb5e69ed-217c-4ef1-addc-540e31f11f6b" targetNamespace="http://www.trisotech.com/definitions/_eb5e69ed-217c-4ef1-addc-540e31f11f6b" expressionLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/" typeLanguage="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" exporter="Workflow Modeler" exporterVersion="12.14.9" name="Lesson 19 - ID19 - Mobile Game Daily Reward" xml:lang="en" triso:translationLanguages="" trisobpmn:logoChoice="Default">
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:string" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_string" id="_triso-default-bpmnItemDefinition-string_id"/>
+    <semantic:itemDefinition triso:readOnly="false" isCollection="false" triso:basicType="true" structureRef="feel:Any" triso:definitionType="http://www.trisotech.com/2015/triso/modeling/ItemDefinitionType" triso:allowProvidedAuth="false" triso:allowUrlOverride="false" triso:name="triso_Any" id="_triso-default-bpmnItemDefinition-Any_id"/>
+    <semantic:collaboration id="_be9a522f-0c5c-40c3-8c50-c96c547b31af">
+        <semantic:participant id="_02a25c9f-bfca-4978-bba6-8c0bbf7182ab" name="Candy Crush Saga" triso:readOnly="false" processRef="_5df7455f-8667-4699-be3c-8f62f969b36e"/>
+        <semantic:participant id="_a44cb022-c669-49c3-9d58-50d98d1836a7" name="Customer" triso:readOnly="false" processRef="_9835c793-8675-45b1-8db6-44c639a86159"/>
+        <semantic:messageFlow id="_7be38ac0-6b08-4323-ab6c-851f3f5f4f93" name="Daily reward alert" triso:readOnly="false" sourceRef="_a7f10ce9-3cd5-492a-94cf-c69e25551cfb" targetRef="_a44cb022-c669-49c3-9d58-50d98d1836a7"/>
+    </semantic:collaboration>
+    <semantic:dataStore id="_66245cd1-795a-4937-887f-23818f9347a4" name="Daily Reward Ledger Database" triso:readOnly="false" itemSubjectRef="_triso-default-bpmnItemDefinition-Any_id" triso:displayName="Daily Reward Ledger Database" isUnlimited="false"/>
+    <semantic:process id="_5df7455f-8667-4699-be3c-8f62f969b36e" name="Process 1" triso:readOnly="false" triso:collectEnds="true" isClosed="false">
+        <semantic:laneSet>
+            <semantic:lane id="_1b7536b3-0998-4f89-a79c-9ffd28168c8d" name="Rewards Service" triso:readOnly="false">
+                <semantic:flowNodeRef>_d11137af-5263-480a-99fe-df78ded095b0</semantic:flowNodeRef>
+                <semantic:flowNodeRef>_602ed3f8-6425-4668-9711-3581afd19b7f</semantic:flowNodeRef>
+            </semantic:lane>
+            <semantic:lane id="_6104d1e8-1254-4c35-8d75-55e555613ec0" name="Notification Service" triso:readOnly="false">
+                <semantic:flowNodeRef>_a7f10ce9-3cd5-492a-94cf-c69e25551cfb</semantic:flowNodeRef>
+                <semantic:flowNodeRef>_0c95185f-4ff6-49b6-8281-04c6b65eba7f</semantic:flowNodeRef>
+            </semantic:lane>
+        </semantic:laneSet>
+        <semantic:startEvent id="_d11137af-5263-480a-99fe-df78ded095b0" name="Midnight daily" triso:readOnly="false">
+            <semantic:outgoing>_9bde8963-97ad-4f53-a137-bc965c569f8d</semantic:outgoing>
+            <semantic:timerEventDefinition id="_fcfec89c-ecaa-465a-9f7f-40ecade88ebb"/>
+        </semantic:startEvent>
+        <semantic:serviceTask id="_602ed3f8-6425-4668-9711-3581afd19b7f" name="Unlock Daily Reward" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>_9bde8963-97ad-4f53-a137-bc965c569f8d</semantic:incoming>
+            <semantic:outgoing>_bdc908fa-2390-4f8c-96d6-9ffd1d87abea</semantic:outgoing>
+        </semantic:serviceTask>
+        <semantic:dataStoreReference id="_f84619e0-8ed9-440a-9333-29320fcf2628" name="Daily Reward Ledger Database" triso:readOnly="false" dataStoreRef="_66245cd1-795a-4937-887f-23818f9347a4"/>
+        <semantic:sendTask id="_a7f10ce9-3cd5-492a-94cf-c69e25551cfb" name="Notify Customer" triso:readOnly="false" implementation="##WebService">
+            <semantic:incoming>_bdc908fa-2390-4f8c-96d6-9ffd1d87abea</semantic:incoming>
+            <semantic:outgoing>_7bf9bb55-e69a-43f8-b22d-52830a194531</semantic:outgoing>
+        </semantic:sendTask>
+        <semantic:endEvent id="_0c95185f-4ff6-49b6-8281-04c6b65eba7f" name="Customer notified of daily rewards" triso:readOnly="false">
+            <semantic:incoming>_7bf9bb55-e69a-43f8-b22d-52830a194531</semantic:incoming>
+        </semantic:endEvent>
+        <semantic:sequenceFlow id="_9bde8963-97ad-4f53-a137-bc965c569f8d" triso:readOnly="false" sourceRef="_d11137af-5263-480a-99fe-df78ded095b0" targetRef="_602ed3f8-6425-4668-9711-3581afd19b7f"/>
+        <semantic:sequenceFlow id="_bdc908fa-2390-4f8c-96d6-9ffd1d87abea" triso:readOnly="false" sourceRef="_602ed3f8-6425-4668-9711-3581afd19b7f" targetRef="_a7f10ce9-3cd5-492a-94cf-c69e25551cfb"/>
+        <semantic:sequenceFlow id="_7bf9bb55-e69a-43f8-b22d-52830a194531" triso:readOnly="false" sourceRef="_a7f10ce9-3cd5-492a-94cf-c69e25551cfb" targetRef="_0c95185f-4ff6-49b6-8281-04c6b65eba7f"/>
+        <semantic:association id="_b4af85ce-9ed3-43db-8066-4cf7d4c6ae2e" trisobpmn:name="Record reward availability" triso:readOnly="false" sourceRef="_602ed3f8-6425-4668-9711-3581afd19b7f" targetRef="_f84619e0-8ed9-440a-9333-29320fcf2628" associationDirection="One"/>
+    </semantic:process>
+    <semantic:process id="_9835c793-8675-45b1-8db6-44c639a86159" name="Player - Process" triso:readOnly="false" triso:collectEnds="true" isClosed="false"/>
+    <bpmndi:BPMNDiagram id="_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a" name="Page 1">
+        <bpmndi:BPMNPlane bpmnElement="_be9a522f-0c5c-40c3-8c50-c96c547b31af" id="_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_plane" trisobpmn:diagramWidth="1542.9999967033211" trisobpmn:diagramHeight="1221.0000075564906">
+            <bpmndi:BPMNShape id="_0928df5c-3ab7-40e0-80d4-6a372860413a" bpmnElement="_02a25c9f-bfca-4978-bba6-8c0bbf7182ab" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="347.09092088307295" y="187.1818311178986" width="643.9999967033211" height="321.0000075564906"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_0">
+                    <dc:Bounds height="322" width="20" x="347.09092088307295" y="186.68183489614387"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_f8f031df-d3ea-46d8-9317-865496a67985" bpmnElement="_1b7536b3-0998-4f89-a79c-9ffd28168c8d" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="377.09092088307295" y="187.1818311178986" width="613.9999967033211" height="171.00000755649066"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_0">
+                    <dc:Bounds height="172" width="20" x="377.09092088307295" y="186.68183489614393"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_04f1cf6d-bc39-49ac-97d9-2b073f6eec79" bpmnElement="_d11137af-5263-480a-99fe-df78ded095b0" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="434.590925399677" y="279.18183505111597" width="32" height="32"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="16" width="110" x="395.590925399677" y="320.18183505111597"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_d6dc0b28-bfa2-4152-a3fc-2ff861daa824" bpmnElement="_602ed3f8-6425-4668-9711-3581afd19b7f" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="498.5909250756444" y="257.18183474117177" width="96.00000000000006" height="76"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="31" width="90" x="501.59092507564446" y="279.68183474117177"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_f84619e0-8ed9-440a-9333-29320fcf2628_di" bpmnElement="_f84619e0-8ed9-440a-9333-29320fcf2628" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="661.0909271536792" y="213.18183113198697" width="33" height="27.992998123168945"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="31" width="110" x="622.5909271536792" y="244.1748292551559"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_a9ca4980-c639-4643-b39c-52cfa89afa70" bpmnElement="_6104d1e8-1254-4c35-8d75-55e555613ec0" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="377.09092088307295" y="358.18183867438927" width="613.9999967033211" height="150"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_0">
+                    <dc:Bounds height="151" width="20" x="377.09092088307295" y="357.68183867438927"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_21333a01-7086-4980-9ed6-d063aeebd17c" bpmnElement="_a7f10ce9-3cd5-492a-94cf-c69e25551cfb" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="646.0909178399847" y="395.1818439460019" width="96" height="76"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="16" width="90" x="649.0909178399847" y="425.1818439460019"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_9409630d-c495-46a0-b3ab-8a4809a1f241" bpmnElement="_0c95185f-4ff6-49b6-8281-04c6b65eba7f" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="791.0909156281105" y="415.18184979523795" width="36" height="35.99999999999994"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="31" width="110" x="754.0909156281105" y="458.1818497952379"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="_5e624b10-8fd4-4837-ae34-77e755b5ddfc" bpmnElement="_a44cb022-c669-49c3-9d58-50d98d1836a7" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+                <dc:Bounds x="347.09092088307295" y="547.1818397566324" width="643.9999967033211" height="150"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_0">
+                    <dc:Bounds height="150" width="20" x="347.09092088307295" y="547.1818397566324"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="_56eb7b5b-4e38-45e1-9199-e1f2378c6267" color:border-color="#000000" bpmnElement="_9bde8963-97ad-4f53-a137-bc965c569f8d">
+                <di:waypoint x="465.590925399677" y="295.18183505111597"/>
+                <di:waypoint x="498.5909250756444" y="295.18183474117177"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_7d36b3d8-8b24-45f7-a8ec-921383126494" color:border-color="#000000" bpmnElement="_bdc908fa-2390-4f8c-96d6-9ffd1d87abea">
+                <di:waypoint x="593.5909250756445" y="295.18183474117177"/>
+                <di:waypoint x="619.8409214578146" y="295.18183474117177"/>
+                <di:waypoint x="619.8409214578146" y="433.18184394600195"/>
+                <di:waypoint x="646.0909178399847" y="433.1818439460019"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_bd41308f-6cab-49f7-81e7-15e5c4cb8460" color:border-color="#000000" bpmnElement="_b4af85ce-9ed3-43db-8066-4cf7d4c6ae2e">
+                <di:waypoint x="575.3909250756444" y="257.18183474117177"/>
+                <di:waypoint x="575.3909250756444" y="226.17833019357144"/>
+                <di:waypoint x="668.0909207140126" y="226.17833019357144"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:labelPosition="custom" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="31" width="110" x="540.3909253574118" y="195.1783296723017"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_baf9157d-53f3-44b7-83e7-a45c64fff146" color:border-color="#000000" bpmnElement="_7be38ac0-6b08-4323-ab6c-851f3f5f4f93">
+                <di:waypoint x="693.0909178399847" y="463.00001101966836"/>
+                <di:waypoint x="693.0909178399847" y="547.1818397566324"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+                    <dc:Bounds height="16" width="110" x="638.0909178399847" y="514.0369486101956"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="_e6ef80e3-2728-4cdd-bfd8-604d9ccdaa31" color:border-color="#000000" bpmnElement="_7bf9bb55-e69a-43f8-b22d-52830a194531">
+                <di:waypoint x="741.0909178399847" y="433.1818439460019"/>
+                <di:waypoint x="791.0909156281105" y="433.1818497952379"/>
+                <bpmndi:BPMNLabel color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" labelStyle="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+        <bpmndi:BPMNLabelStyle id="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_0">
+            <dc:Font name="arial,helvetica,sans-serif" size="14" isBold="true" isItalic="false" isStrikeThrough="false" isUnderline="false"/>
+        </bpmndi:BPMNLabelStyle>
+        <bpmndi:BPMNLabelStyle id="LS_b5c92692-4c76-4672-b45c-2ba1f1eb4d5a_1">
+            <dc:Font name="arial,helvetica,sans-serif" size="11" isBold="true" isItalic="false" isStrikeThrough="false" isUnderline="false"/>
+        </bpmndi:BPMNLabelStyle>
+    </bpmndi:BPMNDiagram>
+</semantic:definitions>
